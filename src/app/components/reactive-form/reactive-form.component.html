@@ -1,0 +1,47 @@
+<div class="main-container">
+  <form [formGroup]="reactiveForm" (ngSubmit)="submitHandler()">
+    <header><h1>Reactive form</h1></header>
+    <hr />
+    <mat-form-field>
+      <input matInput placeholder="Name" formControlName="Name" />
+      <mat-hint align="end">
+        Name should be at least one character long
+      </mat-hint>
+      <mat-error *ngIf="name.invalid && name.touched"> Invalid Name </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Age" type="number" formControlName="Age" />
+      <mat-hint align="end"> Age should be between 2 and 121 </mat-hint>
+      <mat-error *ngIf="name.invalid && name.touched"> Invalid Age </mat-error>
+      <mat-error *ngIf="age.errors?.min && age.touched">
+        {{ age.errors.min.actual }} is too young
+      </mat-error>
+      <mat-error *ngIf="age.errors?.max && age.touched">
+        {{ age.errors.max.actual }} is too old
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email" formControlName="Email" />
+      <mat-error *ngIf="name.invalid && name.touched">
+        A valid email is expected
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-button
+      color="primary"
+      type="submit"
+      [disabled]="reactiveForm.invalid"
+    >
+      Submit
+    </button>
+  </form>
+  <br />
+  <div
+    class="users"
+    *ngFor="let user of users;"
+  >
+    <div class="name">Name: {{user.name}}</div>
+    <div class="age">Age: {{user.age}}</div>
+    <div class="email">Email: {{user.email}}</div>
+  </div>
+</div>
